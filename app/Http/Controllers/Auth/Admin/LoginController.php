@@ -34,6 +34,14 @@ class LoginController extends Controller
 
         $request->session()->regenerate();
 
+        // Fetch the authenticated admin user
+        $user = Auth::guard('admin_user')->user();
+        if ($user) {
+            $user->update([
+                'ip' => $request->getClientIp(), // Update IP address
+                'user_agent' => $request->header('User-Agent'), // Update device user agent
+            ]);
+        }
         return redirect()->intended(RouteServiceProvider::ADMINPANEL);
     }
 

@@ -1,7 +1,7 @@
 <x-admin-layout>
-    <h1 class="text-3xl font-medium mt-3 mx-5">Admin Users</h1>
+    <h1 class="text-3xl font-medium mt-3 mx-5">Users</h1>
     <div class="m-5">
-        <a href="{{ route('user.create') }}">
+        <a href="{{ route('users.create') }}">
             <button class="btn btn-neutral">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="size-6">
@@ -21,6 +21,7 @@
                     <th>Ip</th>
                     <th>User Agent</th>
                     <th>updated_at</th>
+                    <th>Last Login</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -34,6 +35,7 @@
                     <th>Ip</th>
                     <th>User Agent</th>
                     <th>updated_at</th>
+                    <th>Last Login</th>
                     <th>Actions</th>
                 </tr>
             </tfoot>
@@ -54,7 +56,7 @@
                 { targets: [5], visible: false,},
             ],
             order: [[5, 'asec']],
-            ajax: "{{ route('user.index') }}",
+            ajax: "{{ route('users.index') }}",
             columns: [
                 {
                     data: 'name',
@@ -79,6 +81,10 @@
                 {
                     data: 'updated_at',
                     name: 'updated_at'
+                },
+                {
+                    data: 'last_login',
+                    name: 'last_login'
                 },
                 {
                     data: 'Actions',
@@ -125,7 +131,7 @@
 
         // Delete record
         $('#example').on('click', '#deleteItem', function() {
-            var adminUser = $(this).data('id');
+            var user = $(this).data('id');
 
             Swal.fire({
                 title: "Are you sure?",
@@ -138,7 +144,7 @@
                 if (result.value) {
                     $.ajax({
                         type: "DELETE",
-                        url: `user/${adminUser}`,
+                        url: `users/${user}`,
                         dataType: 'json',
                         success: function(res) {
                             if (res.success === 1) {

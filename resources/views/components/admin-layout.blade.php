@@ -91,12 +91,16 @@
             </div>
             <div class="drawer-side" x-data="{ currentRoute: window.location.pathname }">
                 <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay"></label>
-                <ul class="menu bg-base-200 text-base-content min-h-full w-80 p-4">
+                <ul class="menu bg-base-200 text-base-content min-h-full w-80 p-4 gap-1">
                     <!-- Sidebar content here -->
                     <li><a :class="currentRoute === '/admin/dashboard' ? 'bg-base-300' : ''"
                             href="{{ route('admin.dashboard') }}">Dashboard</a></li>
                     <li><a :class="currentRoute === '/admin/user' ? 'bg-base-300' : ''"
                             href="{{ route('user.index') }}">Admin User Management</a></li>
+                    <li><a :class="currentRoute === '/admin/users' ? 'bg-base-300' : ''"
+                            href="{{ route('users.index') }}">Users Management</a></li>
+                    <li><a :class="currentRoute === '/admin/wallets' ? 'bg-base-300' : ''"
+                            href="{{ route('wallet.index') }}">Wallets Management</a></li>
                 </ul>
             </div>
         </div>

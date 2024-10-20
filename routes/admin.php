@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\User\WalletController;
 use App\Http\Controllers\Auth\Admin\LoginController;
 use App\Http\Controllers\Auth\Admin\AdminUserController;
 
@@ -18,6 +20,10 @@ Route::middleware('preventUserAccessAdmin')->group(function () {
         })->name('admin.dashboard');;
 
         Route::resource('user', AdminUserController::class);
+
+        Route::resource('users', UserController::class);
+
+        Route::get('wallets', [WalletController::class, 'index'])->name('wallet.index');
     });
 
 });

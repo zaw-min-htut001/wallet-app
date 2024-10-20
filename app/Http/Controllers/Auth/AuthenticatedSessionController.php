@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Carbon\Carbon;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -29,6 +30,16 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
+
+        // Fetch the authenticated admin user
+        $user = Auth::guard('web')->user();
+        if ($user) {
+            $user->update([
+                'ip' => $request->getClientIp(), // Update IP address
+                'user_agent' => $request->header('User-Agent'), // Update device user agent
+                'last_login' => Carbon::now()->format('Y-m-d H:i:s')
+            ]);
+        }
 
         return redirect()->intended(RouteServiceProvider::HOME);
     }

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Frontend\UserWalletController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -9,12 +10,15 @@ Route::get('/', function () {
 
 // ROUTE FOR USER //
 Route::middleware('auth:web')->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    // home Page
+    Route::get('/home', [UserWalletController::class, 'userHomePage'])->name('dashboard');
+
+    // wallet page
+    Route::get('/wallet', [UserWalletController::class, 'index'])->name('userWallet.index');
 });
 
 Route::middleware('auth:web')->group(function () {
+    Route::get('/profile/info', [ProfileController::class, 'index'])->name('profile.index');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

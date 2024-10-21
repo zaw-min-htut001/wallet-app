@@ -11,6 +11,11 @@ use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
+    // wallet user page
+    public function index(): View
+    {
+        return view('frontend.user.index');
+    }
     /**
      * Display the user's profile form.
      */

@@ -1,30 +1,21 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Home') }}
+            {{ __('My Wallet') }}
         </h2>
     </x-slot>
 
-    <div class="py-9 mx-3">
+    <div class="py-12 mx-3">
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
-            <div class="grid grid-cols-4 mb-7">
-                <div class="col-span-2 w-14 h-14 mx-auto">
-                    <img src="{{ asset('qr-code-svgrepo-com.svg')}}" alt="" srcset="">
-                    <p class="text-center">Receive</p>
-                </div>
-                <div class="col-span-2 w-14 h-14 mx-auto">
-                    <img src="{{ asset('scan-o-svgrepo-com.svg')}}" alt="" srcset="">
-                    <p class="text-center">Scan</p>
-                </div>
-            </div>
-
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <div class="flex justify-between">
-                        <div class="">
-                            <p class="font-thin">e-Wallet Balance (MMk) </p>
-                        </div>
-                        <div class="">
+                    <div class="flex justify-between items-center mb-3">
+                        <h2>Wallet Balance (MMK) </h2>
+
+                        <!-- Display the amount -->
+                        <div class="flex justify-center items-center">
+                            <span class="amount me-3 lg:text-2xl text-lg" id="walletAmount">****</span>
+
                             <span id="toggleAmount" class="toggle-amount">
                                 <!-- Eye Icon (SVG) -->
                                 <svg id="showIcon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -37,15 +28,16 @@
                                 </svg>
                             </span>
                         </div>
+
                     </div>
-
-                    <span class="text-2xl font-semibold" id="walletAmount">****</span>
-
-                    <spam class="divider"></spam>
-
-                    <div class="flex justify-between">
-                        <p class="font-thin">Total Balance (MMk) </p>
-                        <span id="walletAmount1">****</span>
+                    <div class="divider"></div>
+                    <div class="flex justify-between items-center mb-3">
+                        <p>Name :</p>
+                        <p class="ms-4">{{ $user->name}}</p>
+                    </div>
+                    <div class="flex justify-between items-center mb-3">
+                        <p>Account NO :</p>
+                        <p class="ms-4">{{ $wallet->account_number}}</p>
                     </div>
                 </div>
             </div>
@@ -59,7 +51,6 @@
 
     // Get the amount display, the toggle button, and the SVG icons
     const walletAmount = document.getElementById("walletAmount");
-    const walletAmount1 = document.getElementById("walletAmount1");
     const toggleAmount = document.getElementById("toggleAmount");
     const showIcon = document.getElementById("showIcon");
     const hideIcon = document.getElementById("hideIcon");
@@ -67,17 +58,15 @@
     // Add event listener to the toggle button
     toggleAmount.addEventListener("click", function () {
         // Check if the amount is hidden
-        if (walletAmount.textContent === "****" ) {
+        if (walletAmount.textContent === "****") {
             // If hidden, show the actual amount
             walletAmount.textContent = actualAmount;
-            walletAmount1.textContent = actualAmount;
             // Hide the "show" icon and display the "hide" icon
             showIcon.style.display = "none";
             hideIcon.style.display = "inline";
         } else {
             // If shown, hide the amount
             walletAmount.textContent = "****";
-            walletAmount1.textContent = "****";
             // Show the "show" icon and hide the "hide" icon
             showIcon.style.display = "inline";
             hideIcon.style.display = "none";

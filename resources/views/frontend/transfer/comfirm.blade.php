@@ -67,6 +67,7 @@
                     to_user : to_user
                 },
                 success: function(res) {
+                    window.location.href = `/home`;
                 },
                 error: function(xhr, status, error) {
                     let errorMessage = xhr.responseJSON?.fail;

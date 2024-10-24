@@ -117,7 +117,7 @@ class TransferController extends Controller
                 $to_transaction->ref_no = $refNumber;
                 $to_transaction->transcation_id = UUIDGenerate::transactionIdGenerate();
                 $to_transaction->user_id = $to_user['id'];
-                $to_transaction->type = 1;
+                $to_transaction->type = 2;
                 $to_transaction->amount = $request->amount;
                 $to_transaction->note = $request->note;
                 $to_transaction->source_id = $from_user->id;
@@ -127,7 +127,7 @@ class TransferController extends Controller
                 $from_transaction->ref_no = $refNumber;
                 $from_transaction->transcation_id = UUIDGenerate::transactionIdGenerate();
                 $from_transaction->user_id = $from_user['id'];
-                $from_transaction->type = 2;
+                $from_transaction->type = 1;
                 $from_transaction->amount = $request->amount;
                 $from_transaction->note = $request->note;
                 $from_transaction->source_id = $to_user['id'];

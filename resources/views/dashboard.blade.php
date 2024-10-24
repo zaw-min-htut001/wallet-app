@@ -9,11 +9,11 @@
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             <div class="grid grid-cols-4 mb-7">
                 <div class="col-span-2 w-14 h-14 mx-auto">
-                    <img src="{{ asset('qr-code-svgrepo-com.svg')}}" alt="" srcset="">
+                    <img src="{{ asset('photos/qr-code-svgrepo-com.svg')}}" alt="" srcset="">
                     <p class="text-center">Receive</p>
                 </div>
                 <div class="col-span-2 w-14 h-14 mx-auto">
-                    <img src="{{ asset('scan-o-svgrepo-com.svg')}}" alt="" srcset="">
+                    <img src="{{ asset('photos/scan-o-svgrepo-com.svg')}}" alt="" srcset="">
                     <p class="text-center">Scan</p>
                 </div>
             </div>
@@ -48,6 +48,43 @@
                         <span id="walletAmount1">****</span>
                     </div>
                 </div>
+            </div>
+
+            <div class="grid grid-cols-4 mb-5 mt-3">
+                <div class="mx-auto flex flex-col justify-center items-center">
+                    <a href="{{ route('transfer.index') }}">
+                        <div class="avatar w-20 h-20">
+                            <div class="w-24 rounded-full bg-base-300">
+                                <img src="{{ asset('photos/transfer-svgrepo-com.svg')}}" />
+                            </div>
+                        </div>
+                        <p class="text-lg">Transfer</p>
+                    </a>
+                  </div>
+                  <div class="mx-auto flex flex-col justify-center items-center">
+                    <div class="avatar w-20 h-20 ">
+                        <div class="w-24 rounded-full bg-base-300">
+                          <img src="{{ asset('photos/dollar-wallet-money-svgrepo-com.svg')}}" />
+                        </div>
+                      </div>
+                      <p class="text-lg">Wallet</p>
+                  </div>
+                  <div class="mx-auto flex flex-col justify-center items-center">
+                    <div class="avatar w-20 h-20">
+                        <div class="w-24 rounded-full bg-base-300">
+                          <img src="https://ui-avatars.com/api/?name={{ Auth::guard('web')->user()->name }}?background=random"  />
+                        </div>
+                      </div>
+                      <p class="text-lg">Profile</p>
+                  </div>
+                  <div class="mx-auto flex flex-col justify-center items-center">
+                    <div class="avatar w-20 h-20">
+                        <div class="w-24 rounded-full bg-base-300">
+                          <img src="{{ asset('photos/website-history-web-svgrepo-com.svg')}}" />
+                        </div>
+                      </div>
+                      <p class="text-lg">History</p>
+                  </div>
             </div>
         </div>
     </div>

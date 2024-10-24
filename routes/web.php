@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Frontend\TransferController;
 use App\Http\Controllers\Frontend\UserWalletController;
 
 Route::get('/', function () {
@@ -15,7 +16,16 @@ Route::middleware('auth:web')->group(function () {
 
     // wallet page
     Route::get('/wallet', [UserWalletController::class, 'index'])->name('userWallet.index');
+
+    // transfer page
+    Route::get('/transfer', [TransferController::class, 'index'])->name('transfer.index');
+    Route::post('/transfer/verify-number', [TransferController::class, 'verifyNumber'])->name('transfer.verify');
+    Route::get('/transfer/transfer-to', [TransferController::class, 'transferTo'])->name('transfer.transferTo');
+    Route::post('/transfer', [TransferController::class, 'transfer'])->name('transfer.transfer');
+    Route::post('/transfer/comfirm', [TransferController::class, 'comfirm'])->name('transfer.comfirm');
+
 });
+
 
 Route::middleware('auth:web')->group(function () {
     Route::get('/profile/info', [ProfileController::class, 'index'])->name('profile.index');

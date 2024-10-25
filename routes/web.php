@@ -27,6 +27,7 @@ Route::middleware('auth:web')->group(function () {
 
     // transaction page
     Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction.index');
+    Route::get('/transaction/{transaction}', [TransactionController::class, 'show'])->name('transaction.show');
 
 });
 

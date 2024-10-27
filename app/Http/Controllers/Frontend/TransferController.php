@@ -133,6 +133,7 @@ class TransferController extends Controller
                 $from_transaction->source_id = $to_user['id'];
                 $from_transaction->save();
                 DB::commit();
+                return $to_transaction;
             }
             catch(Exception $e) {
                 DB::rollback();

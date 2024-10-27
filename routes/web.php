@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Frontend\QrController;
 use App\Http\Controllers\Frontend\TransferController;
 use App\Http\Controllers\Frontend\UserWalletController;
 use App\Http\Controllers\Frontend\TransactionController;
@@ -28,6 +29,10 @@ Route::middleware('auth:web')->group(function () {
     // transaction page
     Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction.index');
     Route::get('/transaction/{transaction}', [TransactionController::class, 'show'])->name('transaction.show');
+
+    // sacn Qr page
+    Route::get('/receive-qr', [QrController::class, 'index'])->name('qr.index');
+    Route::get('/scan-qr', [QrController::class, 'scanPage'])->name('qr.scanPage');
 
 });
 

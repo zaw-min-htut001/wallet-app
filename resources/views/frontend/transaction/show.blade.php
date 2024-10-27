@@ -41,7 +41,7 @@
                     <div class="flex justify-between items-center mb-3">
                         <h1 class="font-thin text-gray-500">Transfer {{ $transaction->type === 1 ? 'from' : 'to' }}</h1>
                         <div class="">
-                            <h1 class="font-medium text-base uppercase">{{ $transaction->user->name }}</h1>
+                            <h1 class="font-medium text-base uppercase text-end">{{ $transaction->user->name }}</h1>
                             <h1 class="font-medium text-base uppercase text-end">({{ '****' . substr($transaction->user->phone, 7) }})</h1>
                         </div>
                     </div>

@@ -67,7 +67,7 @@
                     to_user : to_user
                 },
                 success: function(res) {
-                    window.location.href = `/home`;
+                    window.location.href = `/transaction/${res.id}`;
                 },
                 error: function(xhr, status, error) {
                     let errorMessage = xhr.responseJSON?.fail;

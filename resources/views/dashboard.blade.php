@@ -9,12 +9,16 @@
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             <div class="grid grid-cols-4 mb-7">
                 <div class="col-span-2 w-14 h-14 mx-auto">
-                    <img src="{{ asset('photos/qr-code-svgrepo-com.svg') }}" alt="" srcset="">
-                    <p class="text-center">Receive</p>
+                    <a href="{{ route('qr.index' )}}">
+                        <img src="{{ asset('photos/qr-code-svgrepo-com.svg') }}" alt="" srcset="">
+                        <p class="text-center">Receive</p>
+                    </a>
                 </div>
                 <div class="col-span-2 w-14 h-14 mx-auto">
-                    <img src="{{ asset('photos/scan-o-svgrepo-com.svg') }}" alt="" srcset="">
-                    <p class="text-center">Scan</p>
+                    <a href="{{ route('qr.scanPage' )}}">
+                        <img src="{{ asset('photos/scan-o-svgrepo-com.svg') }}" alt="" srcset="">
+                        <p class="text-center">Scan</p>
+                    </a>
                 </div>
             </div>
 
@@ -67,20 +71,24 @@
                     </a>
                 </div>
                 <div class="mx-auto flex flex-col justify-center items-center">
-                    <div class="avatar w-20 h-20 ">
-                        <div class="w-24 rounded-full bg-base-300">
-                            <img src="{{ asset('photos/dollar-wallet-money-svgrepo-com.svg') }}" />
+                    <a href="{{ route('userWallet.index') }}">
+                        <div class="avatar w-20 h-20 ">
+                            <div class="w-24 rounded-full bg-base-300">
+                                <img src="{{ asset('photos/dollar-wallet-money-svgrepo-com.svg') }}" />
+                            </div>
                         </div>
-                    </div>
+                    </a>
                     <p class="text-lg">Wallet</p>
                 </div>
                 <div class="mx-auto flex flex-col justify-center items-center">
-                    <div class="avatar w-20 h-20">
-                        <div class="w-24 rounded-full bg-base-300">
-                            <img
-                                src="https://ui-avatars.com/api/?name={{ Auth::guard('web')->user()->name }}?background=random" />
+                    <a href="{{ route('profile.index') }}">
+                        <div class="avatar w-20 h-20">
+                            <div class="w-24 rounded-full bg-base-300">
+                                <img
+                                    src="https://ui-avatars.com/api/?name={{ Auth::guard('web')->user()->name }}?background=random" />
+                            </div>
                         </div>
-                    </div>
+                    </a>
                     <p class="text-lg">Profile</p>
                 </div>
                 <div class="mx-auto flex flex-col justify-center items-center">

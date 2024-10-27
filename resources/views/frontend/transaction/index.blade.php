@@ -67,49 +67,49 @@
                 beforeSend: function() {
                     $('.auto-load').show();
                 }
-            })
-            .done(function(response) {
-                if (response.html == '') {
-                    $('.auto-load').html("We don't have more data to display :(");
-                    return;
-                }
+                })
+                .done(function(response) {
+                    if (response.html == '') {
+                        $('.auto-load').html("We don't have more data to display :(");
+                        return;
+                    }
 
-                $('.auto-load').hide();
-                $("#data-wrapper").append(response.html); // Append new data to #data-wrapper
-            })
-            .fail(function(jqXHR, ajaxOptions, thrownError) {
-                console.log('Server error occurred');
-            });
-    }
+                    $('.auto-load').hide();
+                    $("#data-wrapper").append(response.html); // Append new data to #data-wrapper
+                })
+                .fail(function(jqXHR, ajaxOptions, thrownError) {
+                    console.log('Server error occurred');
+                });
+        }
 
-    function fetchTransactions(filter) {
-        page = 1; // Reset to first page when filter changes
-        currentFilter = filter; // Update current filter
-        $("#data-wrapper").html(''); // Clear existing data
-        infiniteLoadMore(page, filter); // Load filtered data from page 1
-    }
+        function fetchTransactions(filter) {
+            page = 1; // Reset to first page when filter changes
+            currentFilter = filter; // Update current filter
+            $("#data-wrapper").html(''); // Clear existing data
+            infiniteLoadMore(page, filter); // Load filtered data from page 1
+        }
 
-    // Event handler for the "All" button to get all transactions
-    $('#all').on('click', function(e) {
-        e.preventDefault();
-        $('.tab').removeClass('bg-slate-300');
-        $(this).addClass('bg-slate-300'); // 'this' refers to the clicked element
-        fetchTransactions('all'); // Pass filter value for ID 1
-    });
+        // Event handler for the "All" button to get all transactions
+        $('#all').on('click', function(e) {
+            e.preventDefault();
+            $('.tab').removeClass('bg-slate-300');
+            $(this).addClass('bg-slate-300'); // 'this' refers to the clicked element
+            fetchTransactions('all'); // Pass filter value for ID 1
+        });
 
-    // Event handler for button 1 to get filtered transactions (ID = 1)
-    $('#1').on('click', function(e) {
-        e.preventDefault();
-        $('.tab').removeClass('bg-slate-300');
-        $(this).addClass('bg-slate-300'); // 'this' refers to the clicked element
-        fetchTransactions(1); // Pass filter value for ID 1
-    });
+        // Event handler for button 1 to get filtered transactions (ID = 1)
+        $('#1').on('click', function(e) {
+            e.preventDefault();
+            $('.tab').removeClass('bg-slate-300');
+            $(this).addClass('bg-slate-300'); // 'this' refers to the clicked element
+            fetchTransactions(1); // Pass filter value for ID 1
+        });
 
-    // Event handler for button 2 to get filtered transactions (ID = 2)
-    $('#2').on('click', function(e) {
-        e.preventDefault();
-        $('.tab').removeClass('bg-slate-300');
-        $(this).addClass('bg-slate-300'); // 'this' refers to the clicked element
-        fetchTransactions(2); // Pass filter value for ID 2
-    });
+        // Event handler for button 2 to get filtered transactions (ID = 2)
+        $('#2').on('click', function(e) {
+            e.preventDefault();
+            $('.tab').removeClass('bg-slate-300');
+            $(this).addClass('bg-slate-300'); // 'this' refers to the clicked element
+            fetchTransactions(2); // Pass filter value for ID 2
+        });
 </script>

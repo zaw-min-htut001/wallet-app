@@ -2,6 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Wallet;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreTransactionRequest extends FormRequest
@@ -21,8 +24,19 @@ class StoreTransactionRequest extends FormRequest
      */
     public function rules(): array
     {
+        $wallet = Wallet::where('user_id', Auth::user()->id)->first();
+
         return [
-            'amount' => ['required', 'numeric', 'min:1'],
+            'amount' => ['required', 'numeric', 'min:1' ,
+                function($attribute, $value, $fail) use ($wallet) {
+                    if (!$wallet) {
+                        return $fail('Wallet not found.');
+                    }
+                    if ($value > $wallet->amount) {
+                        return $fail('Insufficient wallet balance.');
+                    }
+                }
+            ],
             'note' => ['required']
         ];
     }

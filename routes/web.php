@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Frontend\QrController;
+use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\Frontend\TransferController;
 use App\Http\Controllers\Frontend\UserWalletController;
 use App\Http\Controllers\Frontend\TransactionController;
@@ -34,6 +35,9 @@ Route::middleware('auth:web')->group(function () {
     Route::get('/receive-qr', [QrController::class, 'index'])->name('qr.index');
     Route::get('/scan-qr', [QrController::class, 'scanPage'])->name('qr.scanPage');
 
+    //notifications
+    Route::get('/notifications', [NotificationsController::class, 'index'])->name('notifications.index');
+    Route::get('/notifications/{notification}', [NotificationsController::class, 'show'])->name('notifications.show');
 });
 
 

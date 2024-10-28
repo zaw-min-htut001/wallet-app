@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Notifications\UpdatePassword;
+use App\Notifications\TransactionNoti;
+use Illuminate\Support\Facades\Notification;
 use App\Http\Requests\StoreTransactionRequest;
 
 class TransferController extends Controller
@@ -103,6 +106,8 @@ class TransferController extends Controller
 
         $from_wallet = Wallet::where('user_id' ,$from_user->id)->first();
 
+        $to_user_acc = User::find($to_user['id']); // fetch the user if not already a model instance
+        $from_user_acc = User::find($from_user['id']); // same for from_user
         // password check & transfer money
         if (Hash::check($request->password, $from_user->password)) {
 
@@ -123,6 +128,13 @@ class TransferController extends Controller
                 $to_transaction->source_id = $from_user->id;
                 $to_transaction->save();
 
+                $title = 'Transaction Message!';
+                $message = 'Transfer';
+                $sourceable_id = $to_user['id'];
+                $sourceable_type = Transaction::class ;
+                $web_link = url('/transaction/'. $to_transaction->id);
+                Notification::send($from_user_acc, new TransactionNoti($title, $message, $sourceable_id, $sourceable_type, $web_link));
+
                 $from_transaction = new Transaction();
                 $from_transaction->ref_no = $refNumber;
                 $from_transaction->transcation_id = UUIDGenerate::transactionIdGenerate();
@@ -132,6 +144,14 @@ class TransferController extends Controller
                 $from_transaction->note = $request->note;
                 $from_transaction->source_id = $to_user['id'];
                 $from_transaction->save();
+
+                $title = 'Transaction Message!';
+                $message = 'Received';
+                $sourceable_id = $from_user['id'];
+                $sourceable_type = Transaction::class ;
+                $web_link = url('/transaction/'. $from_transaction->id);
+                Notification::send($to_user_acc, new TransactionNoti($title, $message, $sourceable_id, $sourceable_type, $web_link));
+
                 DB::commit();
                 return $to_transaction;
             }

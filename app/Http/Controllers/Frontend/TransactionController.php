@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
@@ -34,4 +35,5 @@ class TransactionController extends Controller
     {
         return view('frontend.transaction.show', compact('transaction'));
     }
+
 }

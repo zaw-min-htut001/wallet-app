@@ -3,25 +3,28 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 
-class TransactionNoti extends Notification
+class TransactionNoti extends Notification implements ShouldBroadcast
 {
     use Queueable;
 
-    public $title, $message, $sourceable_id, $sourceable_type, $web_link;
+    public $title, $message, $sourceable_id, $sourceable_type, $web_link, $user_id;
     /**
      * Create a new notification instance.
      */
-    public function __construct($title, $message, $sourceable_id, $sourceable_type, $web_link)
+    public function __construct($title, $message, $sourceable_id, $sourceable_type, $web_link, $user_id)
     {
         $this->title = $title;
         $this->message = $message;
         $this->sourceable_id = $sourceable_id;
         $this->sourceable_type = $sourceable_type;
         $this->web_link = $web_link;
+        $this->user_id = $user_id;
     }
 
     /**
@@ -31,7 +34,7 @@ class TransactionNoti extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['database'];
+        return ['database', 'broadcast'];
     }
 
     /**
@@ -49,4 +52,26 @@ class TransactionNoti extends Notification
             'web_link' => $this->web_link,
         ];
     }
+
+    public function toBroadcast(object $notifiable): BroadcastMessage
+    {
+        return new BroadcastMessage([
+            'title' => $this->title ,
+            'message' => $this->message,
+            'sourceable_id' => $this->sourceable_id,
+            'sourceable_type' => $this->sourceable_type,
+            'web_link' => $this->web_link,
+            'user_id' => $this->user_id,
+        ]);
+    }
+
+    public function broadcastOn()
+  {
+      return ['my-channel'];
+  }
+
+  public function broadcastAs()
+  {
+      return 'my-event';
+  }
 }

@@ -33,8 +33,9 @@ class PasswordController extends Controller
         $sourceable_id = $request->user()->id;
         $sourceable_type = User::class ;
         $web_link = url('/home');
+        $user_id = $request->user()->id;
 
-        Notification::send($request->user(), new UpdatePassword($title, $message, $sourceable_id, $sourceable_type, $web_link));
+        Notification::send($request->user(), new UpdatePassword($title, $message, $sourceable_id, $sourceable_type, $web_link, $user_id));
 
         return back()->with('status', 'password-updated');
     }

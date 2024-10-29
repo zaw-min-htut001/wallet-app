@@ -61,4 +61,8 @@ class User extends Authenticatable
         return $this->hasOne(Wallet::class, 'user_id', 'id');
     }
 
+    public function receivesBroadcastNotificationsOn(): string
+    {
+        return 'users.'.$this->id;
+    }
 }

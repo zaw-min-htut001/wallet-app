@@ -130,10 +130,11 @@ class TransferController extends Controller
 
                 $title = 'Transaction Message!';
                 $message = 'Transfer';
+                $user_id = 0;
                 $sourceable_id = $to_user['id'];
                 $sourceable_type = Transaction::class ;
                 $web_link = url('/transaction/'. $to_transaction->id);
-                Notification::send($from_user_acc, new TransactionNoti($title, $message, $sourceable_id, $sourceable_type, $web_link));
+                Notification::send($from_user_acc, new TransactionNoti($title, $message, $sourceable_id, $sourceable_type, $web_link, $user_id));
 
                 $from_transaction = new Transaction();
                 $from_transaction->ref_no = $refNumber;
@@ -147,10 +148,11 @@ class TransferController extends Controller
 
                 $title = 'Transaction Message!';
                 $message = 'Received';
+                $user_id = $to_user['id'];
                 $sourceable_id = $from_user['id'];
                 $sourceable_type = Transaction::class ;
                 $web_link = url('/transaction/'. $from_transaction->id);
-                Notification::send($to_user_acc, new TransactionNoti($title, $message, $sourceable_id, $sourceable_type, $web_link));
+                Notification::send($to_user_acc, new TransactionNoti($title, $message, $sourceable_id, $sourceable_type, $web_link, $user_id));
 
                 DB::commit();
                 return $to_transaction;

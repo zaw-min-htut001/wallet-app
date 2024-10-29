@@ -110,5 +110,32 @@
         }
     });
 </script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+<script>
+     @php
+      $userId = auth()->check() ? auth()->user()->id : 0;
+    @endphp
+  // Enable pusher logging - don't include this in production
+//   Pusher.logToConsole = true;
 
+  var pusher = new Pusher('95b2cf24092b51dfaa13', {
+    cluster: 'ap1'
+  });
+
+  var channel = pusher.subscribe('my-channel');
+    channel.bind("my-event", function(data) {
+      if (data.user_id == {{$userId}}) {
+        // Display toast notification with Toastr
+        toastr.options = {
+          "progressBar": true,
+          "positionClass": "toast-bottom-right",
+          "timeOut": "0", // Duration in milliseconds
+        };
+
+        toastr.success(`${data.message}`, `${data.title}`);
+      }
+  });
+</script>
 </html>

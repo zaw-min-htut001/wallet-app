@@ -161,6 +161,8 @@ return [
          */
         Yajra\DataTables\DataTablesServiceProvider::class,
         Jenssegers\Agent\AgentServiceProvider::class,
+        App\Providers\BroadcastServiceProvider::class,
+
         /*
          * Application Service Providers...
          */
